@@ -1,63 +1,49 @@
 class Node {
-    next = null;
-    data = 0;
-
-    constructor(data) {
-        this.data = data;
-    }
-
-    appendToTail(data) {
-        let end = new Node(data);
-        let n = this;
-        while (n.next) {
-            n = n.next;
-        }
-        n.next = end;
+    constructor(value) {
+        this.value = value;
+        this.next = null;
     }
 }
 
 class LinkedList {
-    constructor(node) {
-        this.head = node;
+    constructor() {
+        this.head = null;
         this.tail = null;
     }
 
-    appendToTail(node) {
-        if (this.tail) {
-            this.tail.next = node;
+    append(value) {
+        let node = new Node(value);
+        if (!this.head) {
+            this.head = node;
             this.tail = node;
         } else {
+            this.tail.next = node;
             this.tail = node;
-            this.head.next = node;
         }
-        
     }
 
-    popNode(data) {
-        let node = this.head;
-        if (this.head.data === data) {
-            this.head = this.head.next;
-            return node;
+    pop() {
+        if (!this.head) {
+            return null;
         }
 
-        while (node.next) {
-            if (node.next.data === data) {
-                node.next = node.next.next;
-                return node.next;
-            }
+        if (!this.head.next) {
+            this.head = null;
+            return this.head;
+        }
+
+        let node = this.head;
+
+        while (node.next.next) {
             node = node.next;
         }
 
-        return null;
+        let last = this.tail;
+        this.tail = node;
+        this.tail.next = null; 
+
+        return last;
     }
 }
 
-let m = new Node(0);
-let list = new LinkedList(m);
-list.printList();
-list.appendToTail(new Node(1));
-list.printList();
-list.appendToTail(new Node(2));
-list.printList();
-list.popNode(2);
-list.printList();
+module.exports = LinkedList;
