@@ -37,6 +37,33 @@ function sumList(list1, list2) {
     return newListHead;
 }
 
+function sumList2(head1, head2) {
+    let digits1 = [];
+    let digits2 = [];
+
+    while (head1 && head2) {
+        digits1.push(head1.value);
+        digits2.push(head2.value);
+        head1 = head1.next;
+        head2 = head2.next;
+    }
+
+    let sum = 0;
+    let pow = digits1.length - 1;
+    for (let i = 0; i < digits1.length; i++) {
+        sum += (digits1[i] + digits2[i]) * (10 ** pow--);
+    }
+    sum += '';
+    let list = new LinkedList(sum[0]);
+    let node = list;
+    for (let i = 1; i < sum.length; i++) {
+        node.next = new LinkedList(sum[i]);
+        node = node.next;
+    }
+
+    return list;
+}
+
 function printList(list) {
     while (list) {
         console.log(list.value);
@@ -63,9 +90,12 @@ let f = new LinkedList(2);
 d.next = e;
 e.next = f;
 
+sumList2(a, d);
+
 let newHead = sumList(a, d);
 
 printList(newHead);
+printList(sumList2(a, d));
 
 // Input: (7 -> 1 -> 6) + (5 -> 9 -> 9). this case refers to 617 + 995
 // Output: 2 -> 1 -> 6 -> 1. the answer refers to 1612
@@ -87,3 +117,4 @@ e.next = f;
 newHead = sumList(a, d);
 
 printList(newHead);
+printList(sumList2(a, d));
