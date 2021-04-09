@@ -15,7 +15,7 @@ class Stack {
 
     push(e) {
         this.stack.push(e);
-        if (this.minStack.length === 0 || e < this.min()) {
+        if (this.minStack.length === 0 || e <= this.min()) {
             this.minStack.push(e);
         }
     }
@@ -36,6 +36,7 @@ stack.push(4);
 stack.push(5);
 stack.push(2);
 console.log(stack.min());
+stack.push(1);
 stack.push(1);
 console.log(stack.min());
 stack.print();
